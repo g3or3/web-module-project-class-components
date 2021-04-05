@@ -1,6 +1,7 @@
 import React from "react";
 import TodoForm from "./components/TodoForm";
 import TodoList from "./components/TodoList";
+import Search from "./components/Search";
 
 class App extends React.Component {
 	constructor() {
@@ -18,26 +19,6 @@ class App extends React.Component {
 					completed: false,
 				},
 				{
-					task: "Learn Magic",
-					id: Date.now() + 2,
-					completed: false,
-				},
-				{
-					task: "Learn Salsa",
-					id: Date.now() + 3,
-					completed: false,
-				},
-				{
-					task: "Learn Cooking",
-					id: Date.now() + 4,
-					completed: false,
-				},
-				{
-					task: "Learn Lifting",
-					id: Date.now() + 5,
-					completed: false,
-				},
-				{
 					task: "Learn Something",
 					id: Date.now() + 6,
 					completed: false,
@@ -48,6 +29,7 @@ class App extends React.Component {
 					completed: false,
 				},
 			],
+			searched: [],
 		};
 	}
 
@@ -80,6 +62,17 @@ class App extends React.Component {
 		});
 	};
 
+	search = (query) => {
+		const searchContent = this.state.todos.filter((todo) =>
+			todo.task.includes(query)
+		);
+		this.setState({ searched: searchContent });
+	};
+
+	clearSearch = () => {
+		this.setState({ searched: [] });
+	};
+
 	render() {
 		return (
 			<div>
@@ -92,6 +85,10 @@ class App extends React.Component {
 					addTodo={this.addTodo}
 					clearCompletedTasks={this.clearCompletedTasks}
 				/>
+				<Search search={this.search} clearSearch={this.clearSearch} />
+				{this.state.searched.map((res) => {
+					return <div key={res.id}>{res.task}</div>;
+				})}
 			</div>
 		);
 	}
