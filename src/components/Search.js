@@ -8,6 +8,7 @@ class Search extends React.Component {
 
 	submitSearch = () => {
 		this.props.search(this.state.searchValue);
+		this.setState({ searchValue: "" });
 	};
 
 	render() {
@@ -19,7 +20,7 @@ class Search extends React.Component {
 						this.setState({ searchValue: evt.target.value });
 					}}
 					placeholder="search:"
-					style={{ marginTop: "5%", marginBottom: "3%" }}
+					style={{ marginTop: "3%", marginBottom: "3%" }}
 				/>
 				<button onClick={this.submitSearch}>Search</button>
 				<button onClick={this.props.clearSearch}>Clear Searches</button>
